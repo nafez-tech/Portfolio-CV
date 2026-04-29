@@ -6,14 +6,15 @@ import { API_ROUTES, fetchData } from '@/lib/API';
 import { TextLoader } from '@/components/UI/SkeletonLoader/SkeletonLoader';
 
 const BlogPage = ({ post, prevPost, nextPost }) => {
-    if (!post) {
-        return <div>Loading...</div>;
-    }
+    
     const [author, setAuthor] = useState(null)
     const [categories, setCategories] = useState(null)
     const [featuredMedia, setFeaturedMedia] = useState(null)
     const [tags, setTags] = useState(null)
     useEffect( ()=> {
+        if (!post) {
+        return <div>Loading...</div>;
+    }
         const getAuthor = async()=>{
             try {
             const user = await fetchData(API_ROUTES.GET_USERS + "/" + post.author);
