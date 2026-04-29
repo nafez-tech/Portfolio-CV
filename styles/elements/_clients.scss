@@ -1,0 +1,22 @@
+//
+// Clients //
+//
+.client-box {
+
+	a {
+		img {
+			opacity: 0.6;
+			width: 100%;
+			@include transition(ease-out 0.12s);
+			height: 80px;
+			 object-fit: contain;
+			 object-position: center;
+			 max-height: 100px;
+		}
+		&:hover {
+			img {
+				opacity: 1;
+			}
+		}
+	}
+}
