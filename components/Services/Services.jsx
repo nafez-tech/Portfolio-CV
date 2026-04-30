@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { servicesData } from './ServicesData'
 import { GET_SERVICES } from '@/lib/API';
-import { ServicesLoader, TextLoader, TitleLoader } from '../UI/SkeletonLoader/SkeletonLoader';
+import { ServicesLoader } from '../UI/SkeletonLoader/SkeletonLoader';
 
 const Services = () => {
     const [data, setData] = useState(null);
@@ -18,9 +18,9 @@ const Services = () => {
             <div className="container">
                 <div className="row g-4 g-xl-5">
                     <div className="col-12 col-xl-4">
-                        <span className="title-heading text-white-04">{servicesData.mainData.title || <TitleLoader/>}</span>
+                        <span className="title-heading text-white-04">{servicesData.mainData.title || ""}</span>
                         <h1 className="display-3 fw-medium mb-0">{servicesData.mainData.title2} <span className="text-gradient">{servicesData.mainData.title2Span}</span></h1>
-                        <p className="text-white-04 mt-3">{data?.what_i_do_description || <TextLoader/>}</p>
+                        <p className="text-white-04 mt-3">{data?.what_i_do_description || ""}</p>
                     </div>
                     <div className="col-12 col-xl-8">
                         <div className="row g-4">

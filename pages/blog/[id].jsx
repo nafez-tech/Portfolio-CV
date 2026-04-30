@@ -1,57 +1,19 @@
-import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
 import { API_ROUTES, fetchData } from '@/lib/API';
-import { TextLoader } from '@/components/UI/SkeletonLoader/SkeletonLoader';
+import { PostLoader } from '@/components/UI/SkeletonLoader/SkeletonLoader';
 
 const BlogPage = ({ post, prevPost, nextPost }) => {
     
-    const [author, setAuthor] = useState(null)
-    const [categories, setCategories] = useState(null)
-    const [featuredMedia, setFeaturedMedia] = useState(null)
-    const [tags, setTags] = useState(null)
-    useEffect( ()=> {
-        if (!post) {
-        return <div>Loading...</div>;
+
+    if (!post) {
+        return (
+        <main className="section p-5 mt-5 w-100">
+            <PostLoader/>
+        </main>
+        )
     }
-        const getAuthor = async()=>{
-            try {
-            const user = await fetchData(API_ROUTES.GET_USERS + "/" + post.author);
-            setAuthor(user.name);
-        } catch (error) {
-            console.error("Failed to fetch user:", error);
-        }}
-
-        const getCategories = async()=>{
-            try {
-            const categories = await fetchData(API_ROUTES.GET_CATEGORIES + "/" + post.categories);
-            setCategories(categories.name);
-        } catch (error) {
-            console.error("Failed to fetch categories:", error);
-        }}
-
-        const getFeaturedMedia = async()=>{
-            try {
-            const featuredMedia = await fetchData(API_ROUTES.GET_MEDIA + "/" + post.featured_media);
-            setFeaturedMedia(featuredMedia.guid.rendered);
-        } catch (error) {
-            console.error("Failed to fetch featuredMedia:", error);
-        }}
-        // GET_TAGS
-        const getTags = async()=>{
-            try {
-            const tags = await fetchData(API_ROUTES.GET_TAGS + "?post=" + post.id);
-            setTags(tags);
-        } catch (error) {
-            console.error("Failed to fetch Tags:", error);
-        }}
-
-        getAuthor();
-        getCategories();
-        getFeaturedMedia();
-        getTags();
-    },[post])
 
     return (
         <>
@@ -63,18 +25,12 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
 
             <main>
                 <div className="section">
-                    <div className="section-sm border-radius-1 p-5 position-relative overflow-hiden" 
-                      style={{ 
-                        background: featuredMedia 
-                        ? `url(${featuredMedia}) no-repeat center/cover` 
-                        : 'none' 
-                        }}>
-                        <div className="ovarlay bg-dark opacity-75 position-absolute w-100 h-100 top-0 start-0 z-1"></div>
-                        <div className="row position-relative z-2 ">
+                    <div className="container">
+                        <div className="row ">
                             <div className="col-12 col-md-10 col-lg-8">
                                 <h1 className="display-3 fw-medium">
                                     {post.title?.rendered}<span className="text-gradient"></span></h1>
-                                <p dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered || <TextLoader/> }} />
+                                <p dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered || "" }} />
                             </div>
                         </div> 
                         {/* end row */}
@@ -84,8 +40,8 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
                                     <h6 className="sm-heading mb-1">Tags:</h6>
                                     <ul className="list-inline-dot">
                                         {/* Assuming services are in ACF or custom field */}
-                                        {tags ? tags.map((item, index) => (
-                                            <li key={index}>
+                                        {post ? post?._embedded?.["wp:term"]?.[1].map((item) => (
+                                            <li key={item.id}>
                                                 {item.name}
                                             </li>
                                         )) : <li>No tags listed</li>}
@@ -95,15 +51,19 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="fancy-box">
                                     <h6 className="sm-heading mb-1">Author:</h6>
-                                    <p className="text-capitalize">{author || 'N/A'}</p>
+                                    <p className="text-capitalize">{post?._embedded?.author[0].name || 'N/A'}</p>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="fancy-box">
                                     <h6 className="sm-heading mb-1">Categories:</h6>
-                                    {categories ? (
-                                        <span>{categories}</span>
-                                    ) : <p>No categories available</p>}
+                                    <ul className="list-inline-dot">
+                                        {post ? post?._embedded?.["wp:term"]?.[0].map((item) => (
+                                            <li key={item.id}>
+                                                {item.name}
+                                            </li>
+                                        )) : <li>No Categories listed</li>}
+                                    </ul>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6 col-lg-3">
@@ -127,9 +87,9 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
                             </div> {/* end row */}
                             {/* Project Media */}
                             <div className="row g-4 g-lg-5 mt-1">
-                                {featuredMedia && (
+                                {post && (
                                     <div className="col-12 mainimage">
-                                        <Image className="border-radius w-100" src={featuredMedia} alt={post.title?.rendered} width={800} height={400} />
+                                        <Image className="border-radius w-100" src={post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url} alt={post.title?.rendered} width={800} height={400} />
                                     </div>
                                 )}
                                 

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
 import { API_ROUTES, fetchData } from '@/lib/API';
+import { PostLoader } from '@/components/UI/SkeletonLoader/SkeletonLoader';
 
 const ProjectPage = ({ project, prevProject, nextProject }) => {
     const [lightboxImage, setLightboxImage] = useState(null);
@@ -16,10 +17,14 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
         setLightboxImage(null);
     };
 
-    if (!project) {
-        return <div>Loading...</div>;
-    }
 
+    if (!project) {
+            return (
+            <main className="section p-5 mt-5 w-100">
+                <PostLoader/>
+            </main>
+            )
+        }
     return (
         <>
             <Head>

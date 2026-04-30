@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
 import {GET_AboutData} from '@/lib/API';
-import { IconeLoder, ImageLoader, NumpLoader, TextLoader } from '../UI/SkeletonLoader/SkeletonLoader';
+import {HomeLoader } from '../UI/SkeletonLoader/SkeletonLoader';
 
 
 const  About =  () => {
@@ -15,7 +15,14 @@ const  About =  () => {
 
         fetchData();
     }, []);
-    console.log(data)
+
+    if (!data) {
+        return (
+        <main className="container">
+            <HomeLoader/>
+        </main>
+        )
+    }
     return (
         <div className="container">
             <div className="row g-4 g-md-5">
@@ -25,7 +32,7 @@ const  About =  () => {
                         {data?.hero_avatar ? (
                             <Image src={data.hero_avatar.url} width={300} height={300} alt={data.hero_avatar.alt} />
                         ) : (
-                            <ImageLoader />
+                            ""
                         )}
                     </div>
                     {/* end Hero Avatar */}
@@ -56,14 +63,14 @@ const  About =  () => {
                     <div className="row g-4 g-lg-5">
                         <div className="col-12 col-md-4 col-lg-12">
                             <h6 className="sm-heading">Biography</h6>
-                            <p>{data?.biography || <TextLoader />}</p>
+                            <p>{data?.biography || ""}</p>
                         </div>
                         <div className="col-6 col-md-4 col-lg-12">
                             <h6 className="sm-heading">Skills</h6>
                             <ul className="list-inline-dot">
                                 {data?.skills.map((item, index) => (
                                     <li key={index}>{item.name } </li> 
-                                ))|| <TextLoader />}
+                                ))|| ""}
                             </ul>
                         </div>
                         <div className="col-6 col-md-4 col-lg-12">
@@ -77,7 +84,7 @@ const  About =  () => {
                                             <i className={item.bootstrap_icon}></i>
                                         </Link>
                                     </li>
-                                )) || <IconeLoder />}
+                                )) || ""}
                             </ul>
                         </div>
                     </div> {/* end row(inner) */}
@@ -86,15 +93,15 @@ const  About =  () => {
                     <div className="row g-4 g-lg-5">
                         <div className="col-4 col-lg-12">
                             <h6 className="sm-heading">Projects Done</h6>
-                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.projects_done || <NumpLoader />}</h1>
+                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.projects_done || ""}</h1>
                         </div>
                         <div className="col-4 col-lg-12">
                             <h6 className="sm-heading">Years of Experience</h6>
-                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.years_of_experience || <NumpLoader />}</h1>
+                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.years_of_experience || ""}</h1>
                         </div>
                         <div className="col-4 col-lg-12">
                             <h6 className="sm-heading">Worldwide Clients</h6>
-                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.world_wide_clients || <NumpLoader />}</h1>
+                            <h1 className="fw-light display-4 mb-0 line-height-110">{data?.world_wide_clients || ""}</h1>
                         </div>
                     </div> {/* end row(inner) */}
                 </div>
