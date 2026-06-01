@@ -40,7 +40,7 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
                         <div className="row">
                             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                                 <h1 className="display-3 fw-medium">{project.title?.rendered}<span className="text-gradient"></span></h1>
-                                <p dangerouslySetInnerHTML={{ __html: project.acf.description }} />
+                                <p dangerouslySetInnerHTML={{ __html: project.acf?.description }} />
                             </div>
                         </div> {/* end row */}
                         <div className="row g-4 mt-5">
@@ -49,7 +49,7 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
                                     <h6 className="sm-heading mb-1">Services:</h6>
                                     <ul className="list-inline-dot">
                                         {/* Assuming services are in ACF or custom field */}
-                                        {project.acf?.services ? project.acf.services.map((item, index) => (
+                                        {project.acf?.services ? project.acf?.services?.map((item, index) => (
                                             <li key={index}>
                                                 {item.name}
                                             </li>
@@ -67,8 +67,8 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
                                 <div className="fancy-box">
                                     <h6 className="sm-heading mb-1">Project link:</h6>
                                     {project.acf?.projectlink ? (
-                                        <Link className="link-hover" href={project.acf.projectlink.url} target="_blank" >
-                                            <span data-text={project.acf.projectlink.title}>{project.acf.projectlink.title}</span>
+                                        <Link className="link-hover" href={project.acf?.projectlink.url} target="_blank" >
+                                            <span data-text={project.acf?.projectlink.title}>{project.acf?.projectlink.title}</span>
                                         </Link>
                                     ) : <p>No link available</p>}
                                 </div>
@@ -89,14 +89,14 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
                             {/* Text */}
                             <div className="row">
                                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                                    <div dangerouslySetInnerHTML={{ __html: project.acf.content }} />
+                                    <div dangerouslySetInnerHTML={{ __html: project.acf?.content }} />
                                 </div>
                             </div> {/* end row */}
                             {/* Project Media */}
                             <div className="row g-4 g-lg-5 mt-1">
                                 {project.acf?.mainimage && (
                                     <div className="col-12 mainimage">
-                                        <Image className="border-radius w-100" src={project.acf.mainimage.url} alt={project.title?.rendered} width={800} height={400} />
+                                        <Image className="border-radius w-100" src={project.acf?.mainimage.url} alt={project.title?.rendered} width={800} height={400} />
                                     </div>
                                 )}
                                 {/* Images Lightbox */}

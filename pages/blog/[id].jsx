@@ -40,7 +40,7 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
                                     <h6 className="sm-heading mb-1">Tags:</h6>
                                     <ul className="list-inline-dot">
                                         {/* Assuming services are in ACF or custom field */}
-                                        {post ? post?._embedded?.["wp:term"]?.[1].map((item) => (
+                                        {post ? post?._embedded?.["wp:term"]?.[1]?.map((item) => (
                                             <li key={item.id}>
                                                 {item.name}
                                             </li>
@@ -51,14 +51,14 @@ const BlogPage = ({ post, prevPost, nextPost }) => {
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="fancy-box">
                                     <h6 className="sm-heading mb-1">Author:</h6>
-                                    <p className="text-capitalize">{post?._embedded?.author[0].name || 'N/A'}</p>
+                                    <p className="text-capitalize">{post?._embedded?.author[0]?.name || 'N/A'}</p>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="fancy-box">
                                     <h6 className="sm-heading mb-1">Categories:</h6>
                                     <ul className="list-inline-dot">
-                                        {post ? post?._embedded?.["wp:term"]?.[0].map((item) => (
+                                        {post ? post?._embedded?.["wp:term"]?.[0]?.map((item) => (
                                             <li key={item.id}>
                                                 {item.name}
                                             </li>
