@@ -26,7 +26,7 @@ export async function fetchData(url) {
 
         return await response.json();
     } catch (error) {
-        console.error('Fetch Error:', error);
+        // console.error('Fetch Error:', error);
         return null;
     }
 }

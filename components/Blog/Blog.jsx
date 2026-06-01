@@ -116,7 +116,7 @@ const Blog = () => {
                                         */}
                                         {/* Caption */}
                                         <h2>
-                                            <Link className="portfolio-caption" href={`/blog/${item.slug}`}>
+                                            <Link className="portfolio-caption" href={`/blog/${item.id}`}>
                                                 <i className="bi bi-arrow-right"></i>
                                                 {item.title.rendered}
                                             </Link>

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { portfolioData } from './PortfolioData';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -34,7 +35,7 @@ const Portfolio = () => {
             updateNavigation(sliderRef.current);
         }
     }, []);
-
+    
     return (
         <div id="portfolio" className="section-box">
             <div className="section-sm bg-dark border-radius-1">
@@ -58,6 +59,7 @@ const Portfolio = () => {
                             {/* end Slider Nav */}
                         </div>
                     </div> {/* end row */}
+                    {data && data.length > 0 && (
                     <Swiper
                         onSwiper={(swiper) => {
                             sliderRef.current = swiper;
@@ -116,7 +118,7 @@ const Portfolio = () => {
                                         */}
                                         {/* Caption */}
                                         <h2>
-                                            <Link className="portfolio-caption" href={`portfolio/${item.slug}`}>
+                                            <Link className="portfolio-caption" href={`portfolio/${item.id}`}>
                                                 <i className="bi bi-arrow-right"></i>
                                                 {item.title.rendered}
                                             </Link>
@@ -126,6 +128,7 @@ const Portfolio = () => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+                    )}
                 </div> {/* end container */}
             </div>
         </div>

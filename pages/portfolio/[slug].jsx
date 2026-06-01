@@ -25,6 +25,7 @@ const ProjectPage = ({ project, prevProject, nextProject }) => {
             </main>
             )
         }
+
     return (
         <>
             <Head>
@@ -162,7 +163,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
 }
 
@@ -192,6 +193,7 @@ export async function getStaticProps({ params }) {
             prevProject,
             nextProject,
         },
+        revalidate: 60,
     };
 }
 
