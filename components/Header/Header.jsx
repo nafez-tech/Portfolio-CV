@@ -30,7 +30,7 @@ const Header = () => {
 	}, [menuRef]);
 
 	return (
-		<div className="header">
+		<div className="header header-lqg">
 			<div className="container-fluid">
 				<div className="header-wrapper">
 					{/* Header Logo */}
@@ -61,7 +61,7 @@ const Header = () => {
 									<Link className="nav-link" href="/#portfolio"><i className="bi bi-arrow-right"></i>Portfolio</Link>
 								</li>
 								<li className="nav-item">
-									<Link className="nav-link" href="/#awards"><i className="bi bi-arrow-right"></i>Experience</Link>
+									<Link className="nav-link" href="/#experience"><i className="bi bi-arrow-right"></i>Experience</Link>
 								</li>
 								<li className="nav-item">
 									<Link className="nav-link" href="/#testimonial"><i className="bi bi-arrow-right"></i>Testimonial</Link>

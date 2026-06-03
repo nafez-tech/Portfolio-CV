@@ -3,7 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link';
 import {GET_AboutData} from '@/lib/API';
 import {HomeLoader } from '../UI/SkeletonLoader/SkeletonLoader';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const  About =  () => {
     const [data, setData] = useState(null);
@@ -62,8 +66,8 @@ const  About =  () => {
                 <div className="col-12 col-lg-4 order-lg-1">
                     <div className="row g-4 g-lg-5">
                         <div className="col-12 col-md-4 col-lg-12">
-                            <h6 className="sm-heading">Biography</h6>
-                            <p>{data?.biography || ""}</p>
+                            <h6 className="sm-heading" >Biography</h6>
+                            <p dangerouslySetInnerHTML={{__html:data?.biography || ""}}/>
                         </div>
                         <div className="col-6 col-md-4 col-lg-12">
                             <h6 className="sm-heading">Skills</h6>
@@ -104,6 +108,46 @@ const  About =  () => {
                             <h1 className="fw-light display-4 mb-0 line-height-110">{data?.world_wide_clients || ""}</h1>
                         </div>
                     </div> {/* end row(inner) */}
+
+                    {/* ===== Skills ====== */}
+                    <Swiper
+                        modules={[Autoplay, Navigation]}
+                        slidesPerView={5}
+                        spaceBetween={12}
+                        breakpoints={{
+                            // when window width is >= 640px
+                            640: {
+                                slidesPerView: 5,
+                                spaceBetween: 10,
+                            },
+                            // when window width is >= 768px
+                            768: {
+                                slidesPerView: 4,
+                                spaceBetween: 18,
+                            },
+                            // when window width is >= 1024px
+                            1024: {
+                                slidesPerView: 5,
+                                spaceBetween: 18,
+                            },
+                        }}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        className="clients-swiper mt-4"
+                    >
+                        {data?.technologies.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="client-box">
+                                    <Image 
+                                    src={item.logo.url} alt={index}
+                                    width={50} height={50}
+                                    className='tech-logo'/>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div> {/* end row */}
         </div>

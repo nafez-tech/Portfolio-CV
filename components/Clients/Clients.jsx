@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import "swiper/css/navigation";
 import Image from 'next/image';
 import Link from 'next/link';
 import { GET_MyCLIENTS } from '@/lib/API';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import "swiper/css/navigation";
 
 const Clients = () => {
     const [data, setData] = useState(null);
@@ -20,6 +21,7 @@ const Clients = () => {
         <div className="section pt-0">
             <div className="container">
                 <Swiper
+                    modules={[Autoplay, Navigation]}
                     slidesPerView={2}
                     spaceBetween={16}
                     breakpoints={{

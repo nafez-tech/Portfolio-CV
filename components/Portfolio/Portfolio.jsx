@@ -1,3 +1,4 @@
+'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { portfolioData } from './PortfolioData';
@@ -5,6 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GET_MyPROJECTS } from '@/lib/API';
+
+import { Autoplay, Navigation } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 
 const Portfolio = () => {
@@ -61,6 +67,7 @@ const Portfolio = () => {
                     </div> {/* end row */}
                     {data && data.length > 0 && (
                     <Swiper
+                        modules={[Autoplay, Navigation]}
                         onSwiper={(swiper) => {
                             sliderRef.current = swiper;
                             swiper.on('init', () => {
@@ -82,13 +89,14 @@ const Portfolio = () => {
                             },
                             // when window width is >= 1024px
                             1024: {
-                                slidesPerView: 2,
-                                spaceBetween: 50,
+                                slidesPerView: 4,
+                                spaceBetween: 18,
                             },
                         }}
                         autoplay={{
                             delay: 2500,
                             disableOnInteraction: false,
+                            pauseOnMouseEnter: true,
                         }}
                         className="portfolio-slider mt-4 mt-lg-5"
                     >
@@ -96,26 +104,30 @@ const Portfolio = () => {
                             <SwiperSlide key={index}>
                                 <div className="portfolio-box">
                                     {/* Image */}
-                                    <div className="portfolio-img">
-                                        <Link href={`portfolio/${item.id}`}>
+                                    <div className="portfolio-img position-relative">
+                                        <Link href={item?.acf?.projectlink.url}
+                                            target="_blank" rel="noopener noreferrer">
                                             <Image src={item?.acf.mainimage?.url} alt={item?.acf.mainimage?.alt} 
                                                 width={600} height={400}
                                             />
+                                            <h3 className="portfolio-overlay position-absolute d-flex gap-2 fs-5">
+                                                <i className="bi bi-eye"></i>
+                                                Live Preview
+                                            </h3>
                                         </Link>
                                     </div>
                                     <div className="pt-4">
                                         {/* Categories */}
-                                       {/*  
-                                       <ul className="list-inline-dot sm-heading text-white mb-2">
-                                            {item.project-category?.map((item, index) => (
+                                    <div className="d-flex gap-2 mb-3 align-content-center">
+                                        <i class="bi bi-globe text-gradient"></i>
+                                        <ul className="list-inline-dot sm-heading text-white mb-2 mt-1">
+                                            {item._embedded['wp:term']?.[0]?.map((item, index) => (
                                                 <li key={index}>
-                                                    <Link className="link-hover" href={`portfolio/${item.slug}`}>
-                                                        <span data-text={item.name}>{item.name}</span>
-                                                    </Link>
+                                                    <span data-text={item.name}>{item.name}</span>
                                                 </li>
                                             ))}
                                         </ul>
-                                        */}
+                                    </div>
                                         {/* Caption */}
                                         <h2>
                                             <Link className="portfolio-caption" href={`portfolio/${item.id}`}>

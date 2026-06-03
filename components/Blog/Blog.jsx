@@ -1,9 +1,15 @@
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GET_MyPOSTS } from '@/lib/API';
 import { blogData } from './BlogData';
+
+import { Autoplay, Navigation } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const Blog = () => {
     const prevRef = useRef(null);
@@ -59,6 +65,7 @@ const Blog = () => {
                         </div>
                     </div> {/* end row */}
                     <Swiper
+                        modules={[Autoplay, Navigation]}
                         onSwiper={(swiper) => {
                             sliderRef.current = swiper;
                             swiper.on('init', () => {
@@ -80,8 +87,8 @@ const Blog = () => {
                             },
                             // when window width is >= 1024px
                             1024: {
-                                slidesPerView: 2,
-                                spaceBetween: 50,
+                                slidesPerView: 3,
+                                spaceBetween: 18,
                             },
                         }}
                         autoplay={{

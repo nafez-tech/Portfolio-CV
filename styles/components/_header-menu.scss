@@ -19,6 +19,10 @@
 		padding: 0 10px;
 		.header-logo {
 			display: inline-flex;
+			-webkit-text-fill-color: transparent;
+			background: linear-gradient(270deg, hsla(0, 0%, 100%, .32), #fff);
+			background-clip: text;
+			-webkit-background-clip: text;
 			* {
 				margin-bottom: 0;
 			}
