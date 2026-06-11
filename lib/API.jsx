@@ -4,7 +4,7 @@ export const API_ROUTES = {
     GET_ABOUT_DATA: `${BASE_URL}/about-data`,
     GET_WHAT_I_DO_SERVICES: `${BASE_URL}/what-i-do-services`,
     GET_CLIENTS: `${BASE_URL}/clients`,
-    GET_PROJECTS: `${BASE_URL}/my-portofolio?_embed`,
+    GET_PROJECTS: `${BASE_URL}/my-portofolio?_embed&per_page=30`,
     GET_WORK_EXPERIENCE: `${BASE_URL}/work-experience`,
     GET_TESTIMONIALS: `${BASE_URL}/testimonial`,
     GET_POSTS: `${BASE_URL}/posts?_embed`,
